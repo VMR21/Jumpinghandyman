@@ -454,17 +454,17 @@ function updateCountdown() {
   const el = document.getElementById("countdown");
   const now = new Date();
 
-  // First cycle start date (UTC)
+  // Define the first cycle start date (UTC)
   const cycleStart = new Date(Date.UTC(2024, 6, 29, 0, 0, 0)); // July 29, 2024
 
-  // Cycle length in ms (13 days after start, inclusive = 14 days total)
+  // Length of each cycle in ms (14 days)
   const cycleLength = 14 * 24 * 60 * 60 * 1000;
 
-  // Cycles passed
+  // How many cycles have passed since the first start
   const cyclesPassed = Math.floor((now - cycleStart) / cycleLength);
 
-  // Inclusive target date (add cycleLength - 1 day)
-  const target = new Date(cycleStart.getTime() + (cyclesPassed + 1) * cycleLength - (24 * 60 * 60 * 1000));
+  // Next target = start date + (cyclesPassed + 1) * cycleLength
+  const target = new Date(cycleStart.getTime() + (cyclesPassed + 1) * cycleLength);
 
   const diff = target - now;
   if (diff <= 0) {
@@ -482,6 +482,7 @@ function updateCountdown() {
 
 setInterval(updateCountdown, 1000);
 updateCountdown();
+
 
 
 async function loadLeaderboard(apiURL = CURRENT_API_URL) {
